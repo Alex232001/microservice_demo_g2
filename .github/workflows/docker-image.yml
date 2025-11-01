@@ -78,6 +78,7 @@ jobs:
     - name: Load and push image
       run: |
         docker load -i /tmp/${{ env.SERVICE_NAME }}.tar
-        docker tag ${{ env.SERVICE_NAME }}:latest ghcr.io/alex232001/${{ env.SERVICE_NAME }}:latest
+        # Теперь пушим напрямую, без переименования
         docker push ghcr.io/alex232001/${{ env.SERVICE_NAME }}:latest
-        echo "  Image pushed to registry"
+        docker push ghcr.io/alex232001/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        echo "  Images pushed to registry"
